@@ -246,3 +246,8 @@ wwww.java.net(CNAME)      kms.java.net
 > 출처 : <https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=hilineisp&logNo=220107284167>
 
 요약하자면 위 IP로 들어온 메일을 제외하면 모두 폐기하라는 뜻.
+
+## 7. TTL(Time To Live)
+
+- DNS에 질의해 응답받은 결과를 캐시에서 유지하는 시간을 의미한다.
+- DNS 서버에서 TTL 값을 늘리면 캐시된 정보가 많아서 응답 시간이 단축되지만, 해당 도메인 정보가 변경되었을때, 정보 갱신이 자주 일어나 그만큼 지연되는 단점이 있다. 그렇기에 적절히 조절하는것이 필요하다.
