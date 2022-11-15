@@ -3,7 +3,7 @@
 ## 0. 알아둬야하는 이유
 
 - 네트워크 프로토콜은 크게 2가지로 나눔. 실제로 데이터를 실어나르는 **데이터 프로토콜**과 데이터 프로토콜이 잘 동작하도록 도와주는 **컨트롤 프로토콜**
-- **컨트롤 프로토콜**은 통신에 직접 관여하지는 않지만 처음 통신 관계를 맺거나 유지하는데 큰 도움을 줌.(ex : `ARP`,`ICMP`,**`DNS`**)
+- **컨트롤 프로토콜**은 통신에 직접 관여하지는 않지만 처음 통신 관계를 맺거나 유지하는데 큰 도움을 줌.(ex: `ARP`,`ICMP`,**`DNS`**)
 
 DNS는 도메인주소를 IP로 변환하는 역할을 수행한다.  
 192.168.10.12같은 ip보다는 www.naver.com 등의 도메인 주소를 이용하는 것이 일반 사용자들에게 더 익숙하고 **서버 IP 변경에 유연하게 대처가 가능하기 때문이다.**
@@ -14,13 +14,13 @@ DNS는 도메인주소를 IP로 변환하는 역할을 수행한다.
 
 ## 1. DNS 소개
 
-http://202.179.177.21와 같은 IP주소로도 사이트에 접속이 가능하고, http://www.naver.com과 같이 도메인 주소를 통해 사이트에 접속이 가능하다.
+<http://202.179.177.21>와 같은 IP주소로도 사이트에 접속이 가능하고, <http://www.naver.com>과 같이 도메인 주소를 통해 사이트에 접속이 가능하다.
 
 네트워크 통신에서는 202.179.177.21와 같은 IP주소를 이용하게 된다. 하지만 사용자는 이를 외우기도 힘들고, 사이트마다 이 IP주소를 외우는것은 사용자에게 좋은 경험을 선사해줄 수 없기에 의미 있는 문자열로 구성된 도메인 주소가 나오게 되었다.
 
 도메인 주소를 사용할 경우 서비스 중인 IP가 변경되어도 도메인 주소 그대로 유지해 접속 방법 변경 없이 서비스할 수 있다는 장점도 있다.
 
-![](/1%EC%A3%BC%EC%B0%A8_%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/kms_img/DNSImage.png)
+![DNSImage](https://user-images.githubusercontent.com/30401054/201928404-6cc4927a-c284-4a6f-8333-c161dff047b6.png)
 
 만약 DNS주소를 직접 입력하였다면 해당 DNS로 도메인에 대한 IP 질의를 보내고 그 결과값으로 요청한 도메인의 서비스 IP주소를 받게 된다.
 
@@ -64,34 +64,34 @@ client ---------------------->   naver.com (202.179.177.21 Server)
 - 만약 DNS 서버에 해당 도메인의 정보가 없다면 루트 도메인을 관리하는 **루트DNS**에 쿼리하게 된다.
 - 루트 DNS는 전세계에 13개가 있고 DNS 서버를 설치하면 루트 DNS의 IP주소를 기록한 힌트 파일을 가지고 있어 루트 DNS관련 별도 설정은 필요 없다.
 
-![](/1%EC%A3%BC%EC%B0%A8_%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/kms_img/rootDomainServer.png)
+![rootDomainServer](https://user-images.githubusercontent.com/30401054/201928575-7e1cb0de-c266-48e0-9c94-9261b310aa0d.png)
 
 ### 2.2 Top-Level Domain(TLD)
 
 IANA에서 구분한 6가지 유형으로 구분이 가능하다.
 
-- Generic(gTLD) : 특별한 제한없이 일반적으로 사용되는 최상위 도메인
+- Generic(gTLD): 특별한 제한없이 일반적으로 사용되는 최상위 도메인
 
 ```text
-com : 일반 기업체
-edu : 4년제 이상 교육기관
-gov : 미국 연방정부기관
-int : 국제기구, 기관
-mil : 미국 연방군사기관
-net : 네트워크 관련기관
-org : 비영리기관
+com: 일반 기업체
+edu: 4년제 이상 교육기관
+gov: 미국 연방정부기관
+int: 국제기구, 기관
+mil: 미국 연방군사기관
+net: 네트워크 관련기관
+org: 비영리기관
 ...
 ```
 
-- Country Code TLD(ccTLD) : 국가 최상위 도메인 보통 ISO 3166표준에 의해 규정되어 씀. 우리나라는 `kr` 보통 이를 사용하면 Second Level TLD에서 사이트 용도에 따른 코드를 사용한다. 예를들면 일반회사는 `co.kr`, 정부기관은 `go.kr` 나라마다 다르다.
+- Country Code TLD(ccTLD): 국가 최상위 도메인 보통 ISO 3166표준에 의해 규정되어 씀. 우리나라는 `kr` 보통 이를 사용하면 Second Level TLD에서 사이트 용도에 따른 코드를 사용한다. 예를들면 일반회사는 `co.kr`, 정부기관은 `go.kr` 나라마다 다르다.
 
-- Sponsored(sTLD) : 특정 목적을 위한 스폰서를 두고 있는 최상위 도메인 ex) .aero, .asia ...
+- Sponsored(sTLD): 특정 목적을 위한 스폰서를 두고 있는 최상위 도메인 ex) .aero, .asia ...
 
-- Infrastructure : 운용상 중요한 인프라 식별자 공간을 지원하기 위해 전용으로 사용되는 최상위 도메인 ex) .arpa
+- Infrastructure: 운용상 중요한 인프라 식별자 공간을 지원하기 위해 전용으로 사용되는 최상위 도메인 ex) .arpa
 
-- Generic-Restricted(grTLD) : 특정 기준을 충족하는 사람이나 단체가 사용할 수 있는 최상위 도메인 ex) .biz, .name ...
+- Generic-Restricted(grTLD): 특정 기준을 충족하는 사람이나 단체가 사용할 수 있는 최상위 도메인 ex) .biz, .name ...
 
-- Test(tTLD) : 개발 프로세스 테스트용 최상위 도메인 ex) .test
+- Test(tTLD): 개발 프로세스 테스트용 최상위 도메인 ex) .test
 
 ## 3. DNS 동작방식
 
@@ -133,12 +133,12 @@ ipconfig /displaydns
 
 - 마스터 서버는 존 파일을 직접 생성해 도메인 관련 정보를 관리한다.
 
-- 슬레이브 서버는 마스터에 만들어진 존 파일을 복제한다. 이 과정을 **영역 전송(Zone Transfer)**라고 한다.
+- 슬레이브 서버는 마스터에 만들어진 존 파일을 복제한다. 이 과정을 **영역 전송(Zone Transfer)** 라고 한다.
 
 즉, 마스터 서버는 도메인 영역을 생성하고 레코드를 직접 관리하지만 슬레이브 서버는 마스터 서버에 설정된 도메인 영역과 레코드를 정기적으로 복제한다.
 
-![](/1%EC%A3%BC%EC%B0%A8_%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC//kms_img/MasterSlave.png)
-> 출처 : <https://computingforgeeks.com/configure-slave-bind-dns-server-on-ubuntu/>
+![MasterSlave](https://user-images.githubusercontent.com/30401054/201928500-7f49e519-9f87-4e74-b9a0-b135fa275eee.png)
+> 출처: <https://computingforgeeks.com/configure-slave-bind-dns-server-on-ubuntu/>
 
 따라서 슬레이브 서버를 만들때에는 도메인을 복제해올 마스터 서버 정보를 입력해야 한다.
 
@@ -159,24 +159,24 @@ DNS 서버는 마스터 서버에 문제가 발생하면 슬레이브 서버도 
 레코드란 도메인 서버를 직접 관리할시 사용자 요청에 대한 응답을 지정해줘야하는데 이 응답의 형식들을 말한다.
 
 ```text
-A(IPv4 Host) : 도메인 주소를 IP(IPv4)로 매핑
-AAAA(IPv6 Host) : 도메인 주소를 IP(IPv6)로 매핑
-CNAME(별칭) : 도메인 주소에 대한 별칭
-SOA(권한 시작) : 본 영역 데이터에 대한 권한
-NS(도메인의 네임서버) : 본 영역에 대한 네임 서버
-MX(메일 교환기) : 도메인에 대한 메일 서버 정보(Mail eXchanger)
-PTR(포인터) : IP 주소를 도메인에 매핑(역방향)
-TXT(레코드) : 도메인에 대한 일반 텍스트
+A(IPv4 Host): 도메인 주소를 IP(IPv4)로 매핑
+AAAA(IPv6 Host): 도메인 주소를 IP(IPv6)로 매핑
+CNAME(별칭): 도메인 주소에 대한 별칭
+SOA(권한 시작): 본 영역 데이터에 대한 권한
+NS(도메인의 네임서버): 본 영역에 대한 네임 서버
+MX(메일 교환기): 도메인에 대한 메일 서버 정보(Mail eXchanger)
+PTR(포인터): IP 주소를 도메인에 매핑(역방향)
+TXT(레코드): 도메인에 대한 일반 텍스트
 ```
 
-- A(IPv4) : 기본 레코드, 하나의 A 레코드는 한 개의 도메인 주소와 한 개의 IP가 1:1로 매핑. 하나의 도메인이 여러 IP 주소와 매핑 가능. 반대도 가능
+- A(IPv4): 기본 레코드, 하나의 A 레코드는 한 개의 도메인 주소와 한 개의 IP가 1:1로 매핑. 하나의 도메인이 여러 IP 주소와 매핑 가능. 반대도 가능
 
-![](/1%EC%A3%BC%EC%B0%A8_%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/kms_img/ARecord.png)
-> 출처 : <https://support.wix.com/ko/article/%EA%B8%B0%EB%B3%B8-a-%EB%B0%8F-cname-%EB%A0%88%EC%BD%94%EB%93%9C-%EC%9E%AC%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0>
+![ARecord](https://user-images.githubusercontent.com/30401054/201928306-43b99725-c9d3-47d0-ba17-b3762348e2a4.png)
+> 출처: <https://support.wix.com/ko/article/%EA%B8%B0%EB%B3%B8-a-%EB%B0%8F-cname-%EB%A0%88%EC%BD%94%EB%93%9C-%EC%9E%AC%EC%84%A4%EC%A0%95%ED%95%98%EA%B8%B0>
 
-- AAAA(IPv6) : A레코드와 역할은 같음. IPv6 주소체계에 사용.
+- AAAA(IPv6): A레코드와 역할은 같음. IPv6 주소체계에 사용.
 
-- CNAME(Canonical Name) : 레코드 값에 IP주소를 매핑하는 A 레코드와 달리 도메인 주소를 매핑. 네임서버가 CNAME레코드에 대한 질의를 받으면 CNAME 레코드에 설정된 도메인 정보를 확인하고 그 도메인 정보를 내부적으로 질의한 결과 IP를 응답한다. 대표적으로 **www**가 있다.
+- CNAME(Canonical Name): 레코드 값에 IP주소를 매핑하는 A 레코드와 달리 도메인 주소를 매핑. 네임서버가 CNAME레코드에 대한 질의를 받으면 CNAME 레코드에 설정된 도메인 정보를 확인하고 그 도메인 정보를 내부적으로 질의한 결과 IP를 응답한다. 대표적으로 **www**가 있다.
 
 예시로 kmsjava.net라는 웹사이트에 접속하려면 'kmsjava.net'이나 'www.kmsjava.net'을 입력할텐데 각각 A레코드로 입력하면 IP주소가 변경될 때 두 레코드 모두 변경해줘야하지만, 'kmsjava.net'을 A 레코드로 'www.kmsjava.net'은 CNAME으로서 'kmsjava.net'을 매핑하면 IP 주소가 변경될 때에도 'kmsjava.net' A레코드만 변경해주면 된다는 이점이 있다.
 
@@ -213,13 +213,13 @@ wwww.java.net(CNAME)      kms.java.net
 
 ```
 
-- SOA(Start Of Authority) : 도메인 영역에 대한 권한을 나타내는 레코드. 현재 네임 서버가 이 도메인 영역에 대한 관리 주제임을 의미 하므로 다른 네임 서버에 질의하지 않고 직접 응답한다. 도메인 영역 선언 시 SOA 레코드는 필수 항목이여서 반드시 만들어야한다. 또한 현재 도메인 관리에 필요한 속성값을 설정. 도메인 동기화에 필요한 타이머 값, TTL 값, 관리자 정보도 SOA 레코드에서 설정.
+- SOA(Start Of Authority): 도메인 영역에 대한 권한을 나타내는 레코드. 현재 네임 서버가 이 도메인 영역에 대한 관리 주제임을 의미 하므로 다른 네임 서버에 질의하지 않고 직접 응답한다. 도메인 영역 선언 시 SOA 레코드는 필수 항목이여서 반드시 만들어야한다. 또한 현재 도메인 관리에 필요한 속성값을 설정. 도메인 동기화에 필요한 타이머 값, TTL 값, 관리자 정보도 SOA 레코드에서 설정.
 
-- NS(Name Sever) : 도메인에 대한 권한이 있는 네임 서버 정보를 설정하는 레코드.
+- NS(Name Sever): 도메인에 대한 권한이 있는 네임 서버 정보를 설정하는 레코드.
 
-- MX(Mail eXchange) : 메일 서버 구성시 사용되는 레코드. 
+- MX(Mail eXchange): 메일 서버 구성시 사용되는 레코드. 
 
-![](/1%EC%A3%BC%EC%B0%A8_%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/kms_img/dnslookup.png)
+![dnslookup](https://user-images.githubusercontent.com/30401054/201928450-4ea50ff9-caf0-4081-b3ab-bd6ef27bed44.png)
 > 네이버의 MX 레코드
 
 
@@ -227,9 +227,9 @@ wwww.java.net(CNAME)      kms.java.net
 
 이 경우 랜덤으로 메일서버로 요청을 보낸다.
 
-- PTR(Pointer) : A 레코드는 도메인 주소에 대한 질의를 IP로 응답받기 위한 레코드라면 PTR은 그 반대이다. IP 주소에 대한 질의로 도메인 주소로 응답하기 위한 레코드이다. A 레코드는 정방향 조회, PTR 레코드는 역방향 조회이다. A레코드와 달리 당연하겠지만 하나의 IP 주소에 대해 하나의 도메인 주소만 가질 수 있다. 보통 **화이트 도메인**구성용으로 사용된다.
+- PTR(Pointer): A 레코드는 도메인 주소에 대한 질의를 IP로 응답받기 위한 레코드라면 PTR은 그 반대이다. IP 주소에 대한 질의로 도메인 주소로 응답하기 위한 레코드이다. A 레코드는 정방향 조회, PTR 레코드는 역방향 조회이다. A레코드와 달리 당연하겠지만 하나의 IP 주소에 대해 하나의 도메인 주소만 가질 수 있다. 보통 **화이트 도메인**구성용으로 사용된다.
 
-- TXT(TexT) : 도메인에 대한 설명과 같이 텍스트를 입력할 수 있는 레코드. 공백 포함도 가능하고 대소문자 구분, 최대 255자 입력가능.
+- TXT(TexT): 도메인에 대한 설명과 같이 텍스트를 입력할 수 있는 레코드. 공백 포함도 가능하고 대소문자 구분, 최대 255자 입력가능.
 
 -----
 
@@ -242,8 +242,8 @@ wwww.java.net(CNAME)      kms.java.net
 - **SPF**레코드를 통해 사전에 메일 서버 정보를 공개하면 수신 측 메일서버에서 해당 도메인을 통해 발송된 메일이 실제 메일서버에 등록된 정보와 일치하는지 확인. 일치하지 않을 경우 비정상적인 이메일 서버에서 정송된 것으로 간주해 해당 이메일을 수신하지 않고 스팸처리
 - SPF레코드를 작성하기 위해서는 TXT레코드를 사용해야함.
 
-![](/1%EC%A3%BC%EC%B0%A8_%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC/kms_img/spf.png)
-> 출처 : <https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=hilineisp&logNo=220107284167>
+![spf](https://user-images.githubusercontent.com/30401054/201928631-967d17bb-0149-4b2d-b8bf-6cdfdff03a15.png)
+> 출처: <https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=hilineisp&logNo=220107284167>
 
 요약하자면 위 IP로 들어온 메일을 제외하면 모두 폐기하라는 뜻.
 
