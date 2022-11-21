@@ -133,6 +133,17 @@ SSL 자체는 사용자에게 웹 서버 인증서를 검증하라고 시키지�
 
 대칭키는 탈취당하면 모든 통신이 유출위험에 놓여있다. 때문에 웹 서버인증 과정에서 상대적으로 안전한 비대칭키 방식을 통해 얻은 서버의 공개키를 통해 대칭키 자체를 암호화해서 서버에 보내는 것이다.
 
+### 참고
+
+![image](https://user-images.githubusercontent.com/30401054/203045150-61cf91a6-e2ca-4158-9919-1420de2a2349.png)
+
+이것은 와이어샤크로 HTTP 패킷와 HTTPs패킷을 확인해본 사진이라고 한다.
+
+위는 HTTPs, 밑은 HTTP메시지이다.
+
+![image](https://user-images.githubusercontent.com/30401054/203045521-6a422191-81b6-4b4e-aef4-2620df0d7682.png)
+
+HTTPs는 암호화 되어있고, HTTP 패킷은 평문으로 보이는걸 확인할 수 있다.
 
 
 
@@ -143,3 +154,4 @@ SSL 자체는 사용자에게 웹 서버 인증서를 검증하라고 시키지�
 - <https://brunch.co.kr/@sangjinkang/37> 인증 과정
 - <https://brunch.co.kr/@sangjinkang/38> SSL 핸드셰이크
 - <https://ko.wikipedia.org/wiki/HTTPS> 위키백과
+- <https://yunzema.tistory.com/358> 패킷 까보기
