@@ -304,3 +304,9 @@ func checkServerPush(err error) {
 - Server Push의 대안으로는 `103 Early Hints`가 있음.
 
 > https://developer.chrome.com/blog/removing-push/
+
+## HTTP/1.1 vs HTTP/2.0
+
+![http1_vs_http2](https://assets.website-files.com/5ff66329429d880392f6cba2/6149cbd7fd4bdd7c82f55cc6_http1%20vs%20http2.png)
+
+![http1_vs_http2_2](https://assets.website-files.com/5ff66329429d880392f6cba2/6149cc01573487fea0af8519_http1%20vs%20http2%20vs%20http3.png)
