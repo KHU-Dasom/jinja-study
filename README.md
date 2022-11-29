@@ -57,3 +57,14 @@
 | 윤준석 | [DHCP](./3주차_네트워크/윤준석_DHCP.md) |
 | 최승호 | [Ethernet](./3주차_네트워크/최승호_Ethernet.md) |
 | 홍준식 | [TCP](./3주차_네트워크/홍준식_TCP.md) |
+
+### 4주차 (12월 5일)
+
+- 상위 발표 주제: OS
+
+| 이름 | 세부 주제 |
+| --- | --- |
+| 강민석 | [Process](./4주차_네트워크/강민석_Process.md) |
+| 윤준석 | [Thread](./4주차_네트워크/윤준석_Thread.md) |
+| 최승호 | [Scheduling](./4주차_네트워크/최승호_Scheduling.md) |
+| 홍준식 | [Interrupt_System Call](./4주차_네트워크/홍준식_Interrupt_System_Call.md) |
