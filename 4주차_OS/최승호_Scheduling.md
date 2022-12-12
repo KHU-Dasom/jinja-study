@@ -30,6 +30,7 @@
   - When data are shared among several processes, this can result in race conditions
 
 ### Dispatcher
+
 ![The role of dispatcher](https://user-images.githubusercontent.com/56192918/205567984-0772dac3-faf7-49cd-98af-40f7f6344390.png)
 - Module that gives control of the CPU's core to the process selected by the CPU scheduler
 
@@ -50,6 +51,7 @@
 
 ### FCFS Scheduling
 ***First-Come, First-Served Scheduling***
+
 ![FCFS](https://user-images.githubusercontent.com/56192918/205582642-f52d636c-cc46-4618-9788-2eae5fb543c0.png)
 Can be managed with a FIFO queue
 - Advantage: Simple to write and understand
@@ -125,6 +127,7 @@ Can be managed with a FIFO queue
 
 Fixed-priority preemptive scheduling
 - scheduling among the queues
+
 ![Multilevel Queue2](https://user-images.githubusercontent.com/56192918/207020907-3cf9da15-9cba-4170-8206-739d8a16ef13.png)
 - Absolute priority for each queue
 - can be preemptive by higher priority queue
