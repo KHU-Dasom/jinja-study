@@ -75,15 +75,17 @@ Can be managed with a FIFO queue
 - **Time quantum** is defined
 - Ready Queue(FIFO) is treated as **circular queue**
 - The CPU scheduler goes around the ready queue, allocating the CPU to each process for a time interval of up to 1 time quantum
+
 ![RR1](https://user-images.githubusercontent.com/56192918/205591403-5326af8f-ceb1-4726-8caa-68e268470ada.png)
 ![RR2](https://user-images.githubusercontent.com/56192918/205591424-be8f89fb-ff3e-4d87-a25a-6e4554416a5f.png)
-  (Consider time quantum of 4 milliseconds)
+- (Consider time quantum of 4 milliseconds)
 - Performance depends on the size of the time quantum
 
 ### Priority Scheduling
 ***SJF algorithm is a special case of priority scheduling algorithm***
 - CPU is allocated to the process with the highest priority
 - If the next CPU bursts of two processes are the same, FCFS scheduling is used
+
 ![Priority1](https://user-images.githubusercontent.com/56192918/206084768-ad364607-2cba-476f-8026-6e89adff3e69.png)
 ![Priority2](https://user-images.githubusercontent.com/56192918/206084782-3d49ecff-7d43-42a7-8d9f-90045afc87d3.png)
 
@@ -107,11 +109,13 @@ Can be managed with a FIFO queue
   - **Aging**: Involves gradually increasing the priority of processes that wait in the system for a long time
   - **Round-Robin + Priority scheduling**
     - Round-Robin for equal priority processes
+    
     ![Priority3](https://user-images.githubusercontent.com/56192918/206088571-c98323dc-bea0-4e9f-8cbd-e87ee805bca0.png)
     ![Priority4](https://user-images.githubusercontent.com/56192918/206088594-f5815dac-517d-4a66-879a-1e02d57dc353.png)
     
 ### Multilevel Queue Scheduling
 ***Separate queues for each distinct priority***
+
 ![Multilevel Queue](https://user-images.githubusercontent.com/56192918/207020040-7271d006-659e-4f02-9e06-f06b7e8891f4.png)
 - Separate Queues for each priority
 - Consists of **Foreground** and **Background** processes
@@ -128,6 +132,7 @@ Fixed-priority preemptive scheduling
 ### Multilevel Feedback Queue Scheduling
 ***A process moves between queues***
 Separate processes according to the characteristics of their CPU bursts 
+
 ![Multilevel Feedback Queue](https://user-images.githubusercontent.com/56192918/207024000-7a4c290a-e2a6-493e-9063-7b4f12eeaaaf.png)
 - If a process uses too much CPU time, it will be moved to a lower-priority queue
 - A process that waits too long in a lower-priority queue may be moved to a higher-priority queue
@@ -166,6 +171,7 @@ Multiple threads may run in parallel, load sharing becomes possible
   - Scheduler for each processor examine the ready queue and select a thread to run
     1. All threads may be in a common ready queue
     2. Each processor may have its own private queue of threads
+
 ![SMP1](https://user-images.githubusercontent.com/56192918/206116207-a4b472f8-d80b-48da-b69c-fadb322a5ea2.png)
     - a) Possible race condition on the shared ready queue
     - b) workloads of varying sizes
@@ -175,17 +181,21 @@ Multiple computing cores on the same physical chip
 
 
 **Memory stall**
+
 ![Memory stall](https://user-images.githubusercontent.com/56192918/206118917-6e78ee3e-0597-45e2-80d5-48146be8c3b3.png)
 - Modern processors operate at much faster speeds than memory
 - Cache miss
 - To remedy, multithreaded processing cores in which **two or more hardware threads** are assigned to each core
+
 ![Hardware threads](https://user-images.githubusercontent.com/56192918/206120543-5e033b0b-e68d-4ceb-8d99-820d79e88cff.png)
 
 CMT(Chip Multi-threading/Hyper Threading)
+
 ![CMT](https://user-images.githubusercontent.com/56192918/206121391-f4931455-e4e8-4d87-b5f5-b34fb1dab433.png)
 - From the perspective of OS, there are eight logical CPUs
 
 Two level of Scheduling
+
 ![Two levels of scheduling](https://user-images.githubusercontent.com/56192918/206123477-04356e8c-3745-4ec4-854b-a72125ed60e9.png)
 1. Operating system chooses which software thread to run on each hardware thread
 2. Each core decides which hardware thread to run
@@ -219,6 +229,7 @@ Two affinity strategies
 - Linux implement soft affinity, but it also provides `sched_setaffinity()` system call which supports hard affinity
 
 Processor affinity issues affected by main-memory architecture
+
 ![image](https://user-images.githubusercontent.com/56192918/207010544-d01f6ade-b208-41f3-bd14-00483509d60d.png)
 - If NUMA-aware, thread can be allocated memory closest to where the CPU resides
 
