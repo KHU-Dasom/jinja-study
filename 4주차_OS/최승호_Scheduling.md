@@ -176,8 +176,8 @@ Multiple threads may run in parallel, load sharing becomes possible
     2. Each processor may have its own private queue of threads
 
 ![SMP1](https://user-images.githubusercontent.com/56192918/206116207-a4b472f8-d80b-48da-b69c-fadb322a5ea2.png)
-    - a) Possible race condition on the shared ready queue
-    - b) workloads of varying sizes
+- a) Possible race condition on the shared ready queue
+- b) workloads of varying sizes
 
 ### Multi Processors
 Multiple computing cores on the same physical chip
