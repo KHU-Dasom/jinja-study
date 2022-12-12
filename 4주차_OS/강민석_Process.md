@@ -155,11 +155,111 @@ Registers: 프로세스 실행 중 사용된 레즈스터 값들 (Accumulator, I
 
 ## 5. Process Management
 
+시스템이 부팅된 후 최초 프로세스는 운영체제가 직접 생성, 그 이후로는 프로세스를 복제하여 생성하게 된다.
+프로세스를 복제한 프로세스를 **부모 프로세스** 새롭게 생성된 프로세스를 **자식 프로세스**라고 한다.
+
+![image](https://user-images.githubusercontent.com/30401054/205913724-d288f657-8bc9-4732-85b1-9e6359c5497e.png)
+
+각 프로세스는 **PID**로 구별되고, 자원은 운영체제로부터 할당받거나 부모와 공유한다.
+
+### fork()
+
+`fork()`라는 시스템콜은 새로운 프로세스를 생성한다.
+
+`fork()`를 통해 자식은 부모의 pid를 제외하고 그대로 복사한다. `fork()`함수의 리턴값은 부모는 0보다 큰 수, 자식은 0을 갖는다.
 
 
 
 
+```c++
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
+static void ssu_charatatime(char *str) {
+    char *ptr;
+    int print_char;
+
+    setbuf(stdout, NULL);
+
+    for (ptr = str; (print_char = *ptr++) != 0;) {
+        putc(print_char, stdout);
+        usleep(10);
+    }
+}
+
+int main(int argc, char *argv[], char *envpp[]) {
+    pid_t pid;
+
+    if ((pid = fork()) == 0) {
+        ssu_charatatime("output from child\n");
+    } else if (pid > 0) {
+        ssu_charatatime("output from parent\n");
+    }
+    exit(0);
+}
+```
+
+결과
+
+![image](https://user-images.githubusercontent.com/30401054/205925977-988e3eae-d7f9-4ece-905a-9163ff7d3062.png)
+
+
+## 6. Process Cooperating
+
+프로세스는 동작 방식에 따라 2가지 방식으로 나뉜다. 먼저 **독립적 프로세스(Independent Process)**는 각자 주소 공간을 가지면서 수행되고 원칙적으로는 하나의 프로세스가 다른 프로세스의 수행에 영향을 미치지는 않는다. 
+
+**협력 프로세스(Cooperating Process)**는 **IPC(InterProcess Communication)**이라는 프로세스 협력 메커니즘을 통해 하나의 프로세스가 다른 프로세스 수행에 영향을 미칠 수 있다. 
+
+IPC에는 크게 두 모델이 있다.
+
+![image](https://user-images.githubusercontent.com/30401054/205932307-09566b22-34f3-4f98-9f60-28d2a2938622.png)
+
+### 공유 메모리(Shared Memory)
+
+서로 다픈 프로세스 간에 일부 주소 공간을 공유.
+
+위의 그림처럼 같은 공간을 사용하므로 일관성 문제가 생길 수 있다.
+
+장점으로는 **커널**을 거치지 않기에 빠르다.
+
+![image](https://user-images.githubusercontent.com/30401054/205940578-3832e246-9379-49ef-8d10-09b75a57a0bf.png)
+
+커널은 또 정리하는 편이 좋지만 여기서는 간단하게 `fork()`라는 함수를 실행하면 OS자체에서 내부적으로 이 코드를 실행하기 위해 로직을 돌텐데 이때 도는 로직들은 커널공간에서 돈다고 생각하면 된다.
+
+### 메시지 패싱(Message Passing)
+
+**커널**을 통해 메시지를 주고 받는다. Context Switch가 발생하기에 속도가 느리지만, 커널이 기본 기능을 제공하기에 구현이 쉽고, 일관성 문제를 해결하기 쉽다.
+
+- 기본적으로 Send/Receive 동작을 통해 교환한다.
+
+1) Direct Communication
+
+통신하는 프로세스의 이름을 명시적으로 표시해야한다.
+
+![image](https://user-images.githubusercontent.com/30401054/205941591-553c7b4e-ea5a-4aea-9327-52bfe8da0556.png)
+
+때문에 서로 이름만 알면 된다. 이는 단점이 될 수도 있는데, 만약 프로세스의 이름을 변경해야한다면 연결되어 있는 모든 Send/Receive 프로세스를 바꿔줘야한다.
+
+2) Indirect Dommunication
+
+**mailbox**를 통해 메시지를 전달한다.
+
+![image](https://user-images.githubusercontent.com/30401054/205941977-4c02b54b-482d-4fbe-9b82-c2485d8d37f3.png)
+
+이 mailbox는 고유의 ID를 가지고 있고, 이 ID를 통해 연결된 프로세스들이 통신을 할 수 있다.
+
+- Blocking send : 수신자(프로세스 or mailbox)가 메시지를 받을 때까지 발신자는 block 된다. 
+- Non-blocking send : 발신자가 메시지를 보내고 작업을 계속한다.
+- Blocking receive : 수신자가 메시지를 받을 때까지 block 된다.
+- Non-blocking receive : 수신자는 유효한 메시지 또는 null 메시지를 받는다.
+
+
+프로세스끼리 통신할 때 **파이프(Pipe)**방식으로도 통신한다. 이는 단방향만 가능해서 양방향으로 통신하려면 두 개의 파이프가 필요하다.
+
+![image](https://user-images.githubusercontent.com/30401054/205942742-ef87e0c7-69e1-41df-ab00-4cbdea0ad43c.png)
+
+이 파이프는 **Anonymous 파이프와 named 파이프**로 구분되는데 전자는 부모-자식 또는 공통의 부모를 갖는 프로세스끼리 통신이 가능하다. 후자는 그런 관계 없이 사용할 수 있다.
 
 
 
@@ -168,3 +268,4 @@ Registers: 프로세스 실행 중 사용된 레즈스터 값들 (Accumulator, I
 - <https://velog.io/@zooneon/OS-Process-State#-dispatcher> 프로세스 상태모델
 - <https://ws-pace.tistory.com/20> PCB 등
 - <https://rebro.kr/172> Context Switch
+- <https://bubble-dev.tistory.com/entry/CC-fork2> fork()
