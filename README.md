@@ -75,7 +75,7 @@
 
 | 이름 | 세부 주제 |
 | --- | --- |
-| 강민석 | [Syncronization](./5주차_OS/강민석_Syncronization.md) |
+| 강민석 | [Syncronization](./5주차_OS/강민석_Synchronization.md) |
 | 윤준석 | []() |
 | 최승호 | [File System](./5주차_OS/최승호_File_System.md) |
 | 홍준식 | [Virtual Memory System](./5주차_OS/홍준식_Virtual_Memory_System.md) |
