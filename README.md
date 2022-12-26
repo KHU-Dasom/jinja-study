@@ -79,3 +79,14 @@
 | 윤준석 | [Kernel](./5주차_OS/윤준석_Kernel.md) |
 | 최승호 | [File System](./5주차_OS/최승호_File_System.md) |
 | 홍준식 | [Virtual Memory System](./5주차_OS/홍준식_Virtual_Memory_System.md) |
+
+### 6주차 (1월 3일)
+
+- 상위 발표 주제: JAVA
+
+| 이름 | 세부 주제 |
+| --- | --- |
+| 강민석 | [JAVA8](./6주차_JAVA/강민석_JAVA8.md) |
+| 윤준석 | [Wrapper Class](./6주차_JAVA/윤준석_Wrapper_Class.md) |
+| 최승호 | [OOP](./6주차_JAVA/최승호_OOP.md) |
+| 홍준식 | [Interface](./6주차_JAVA/홍준식_Interface.md) |
