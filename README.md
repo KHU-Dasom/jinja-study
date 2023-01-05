@@ -90,3 +90,14 @@
 | 윤준석 | [Wrapper Class](./6주차_JAVA/윤준석_Wrapper_Class.md) |
 | 최승호 | [OOP](./6주차_JAVA/최승호_OOP.md) |
 | 홍준식 | [Interface](./6주차_JAVA/홍준식_Interface.md) |
+
+### 7주차 (1월 10일)
+
+- 상위 발표 주제: JAVA
+
+| 이름 | 세부 주제 |
+| --- | --- |
+| 강민석 | [JAVA Coding Style](./7주차_JAVA/강민석_JAVA_Coding_Style.md) |
+| 윤준석 | [First Class Collection](./7주차_JAVA/윤준석_First_Class_Collection.md) |
+| 최승호 | |
+| 홍준식 | [Generic](./7주차_JAVA/홍준식_Generic.md) |
