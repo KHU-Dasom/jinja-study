@@ -101,3 +101,13 @@
 | 윤준석 | [First Class Collection](./7주차_JAVA/윤준석_First_Class_Collection.md) |
 | 최승호 | |
 | 홍준식 | [Generic](./7주차_JAVA/홍준식_Generic.md) |
+
+### 8주차 (1월 17일)
+
+- 상위 발표 주제: JAVA
+
+| 이름 | 세부 주제 |
+| --- | --- |
+| 강민석 | [Reflection](./8주차_JAVA/강민석_Reflection.md) |
+| 윤준석 | [Serialize](./8주차_JAVA/윤준석_Serialize.md) |
+| 홍준식 | [Stream](./8주차_JAVA/홍준식_Stream.md) |
