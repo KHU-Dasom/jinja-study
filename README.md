@@ -111,3 +111,13 @@
 | 강민석 | [Reflection](./8주차_JAVA/강민석_Reflection.md) |
 | 윤준석 | [Serialize](./8주차_JAVA/윤준석_Serialize.md) |
 | 홍준식 | [Stream](./8주차_JAVA/홍준식_Stream.md) |
+
+### 9주차 (1월 24일)
+
+- 상위 발표 주제: JAVA
+
+| 이름 | 세부 주제 |
+| --- | --- |
+| 강민석 | [Annotation](./9주차_JAVA/강민석_Annotation.md) |
+| 윤준석 | [String](./9주차_JAVA/윤준석_String.md) |
+| 홍준식 | [Class Loader](./9주차_JAVA/홍준식_Class_Loader.md) |
