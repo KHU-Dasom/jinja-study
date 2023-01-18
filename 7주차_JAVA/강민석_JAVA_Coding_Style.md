@@ -447,4 +447,89 @@ public protected private abstract default static final transient volatile synchr
 
 **Google Style**에서는 특별한 접두사나 접미사가 불필요하다. `name_`, `mName`, `s_name`, `kName`과 같은거 필요 없다.
 
+### 5.2 Rules by identifier type
 
+- `package` 이름은 소문자와 숫자만을 사용하여 작성한다. 
+
+- `Class`의 이름은 **카멜규칙**을 적용한다. 첫 글자는 대문자를 사용한다.
+
+- `Test` 클래스의 이름은 끝에 `Test`를 붙인다. 
+
+- `Method`의 이름은 **카멜규칙**을 사용하지만, 클래스와 다르게 첫 글자는 소문자로 쓴다.
+
+- `Constant`의 이름은 **스네이크규칙**을 적용한다. 모두 **대문자**를 쓴다.
+
+```java
+// Constants
+static final int NUMBER = 5;
+static final ImmutableList<String> NAMES = ImmutableList.of("Ed", "Ann");
+static final Map<String, Integer> AGES = ImmutableMap.of("Ed", 35, "Ann", 32);
+static final Joiner COMMA_JOINER = Joiner.on(','); // because Joiner is immutable
+static final SomeMutableType[] EMPTY_ARRAY = {};
+```
+
+- `Non-Constant`의 이름은 **카멜규칙**을 적용한다. 첫 글자만 소문자를 사용한다.
+
+- `Parameter`의 이름도 위와 동일하다.
+
+- `Local variable`도 동일하다.
+
+- `Type varaible`은 하나의 문자인 경우 `T`, `E`, `X2`처럼 대문자를 사용하고 문자 뒤에 숫자가 나온다. 그렇지 않은 경우 `Class`의 규칙을 적용한다. 그리고 뒤에 `T`를 붙인다. ex) `RequestT` ...
+
+### 5.3 Camel case: defined
+
+![image](https://user-images.githubusercontent.com/30401054/213167696-82ad474f-0589-47a2-889b-aeac72feac6a.png)
+
+눈으로 확인하라
+
+## ✏️ 6. Programming Practies
+
+### 6.1 @Override: always used
+
+- `@Override` 무조건 써라. 단 한 가지의 예외가 있다. 만약 부모의 함수가 `@Deprecated`에 의해 생략될 수 있는 경우에만
+
+### 6.2 Caught exceptions: not ignored
+
+- 예외를 잡았을때 해당 예외를 무시하지말라.
+
+- 예시로 아무런 조치를 취하지 않는다면 주석을 달아놓은 코드
+
+```java
+try {
+  int i = Integer.parseInt(response);
+  return handleNumericResponse(i);
+} catch (NumberFormatException ok) {
+  // it's not numeric; that's fine, just continue
+}
+return handleTextResponse(response);
+```
+
+예외를 잡았다면 어떤 조치를 취해야한다.
+
+```java
+e.printStatckTrace()
+```
+
+같은 코드를 넣으면서 자신의 Custom Error를 발생시키는것도 방법이다.
+
+### 6.3 Static members: qualified using class
+
+- 만약 정적 멤버(static member)를 사용할 때 해당 멤버를 소유하는 클래스를 참조하도로 권고한다.
+
+```java
+Foo aFoo = ...;
+Foo.aStaticMethod(); // good
+aFoo.aStaticMethod(); // bad 인스턴스를 만들어서 사용하는 방법
+somethingThatYieldsAFoo().aStaticMethod(); // very bad 어떤 함수가 반환하는 객체의 메서드를 호출하는 방법
+```
+
+### 6.4 Finalizers: not used
+
+- `finalizer`를 사용하지마. 자바18에서부터 얘를 없앨 준비를 하고 있다.
+
+- 해당 메서드는 객체의 리소스를 해제시키는 등의 처리를 할 수 있는데, 보통 가비지 컬렉터가 실행될 때 사용된다. 즉, 프로그래머가 해당 메서드를 사용하면 가비지컬렉터의 효율성이 저하될 수 있으며, 안정성 또한 저하될 수 있다.
+
+## 🔅 Reference
+
+- ChatGPT
+- <https://google.github.io/styleguide/javaguide.html>
