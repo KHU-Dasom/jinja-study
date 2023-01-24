@@ -104,8 +104,11 @@ RUNTIME : 런타임까지만 남아있는다.
 
 먼저 JVM이 동작하는 방식을 알아야할 필요가 있다.
 
+```text
       compile              load
 .java    ->     .class      ->      classLoader in JVM
+```
+
 이렇게 되기에 SOURCE는 .java시점에 살아있고, CLASS는 .class시점에 살아있을것이고 실제 프로그램이 구동되면서는 런타임이 된것이므로 RUNTIME에 살아있을 것이다.
 
 대표적으로 롬복의 @Getter는 정책이 SOURCE로 되어있는데 컴파일될 때 메서드들의 get()함수를 바이트코드로 생성해 컴파일을 시켜버리고 사라지게 되는것이다.
