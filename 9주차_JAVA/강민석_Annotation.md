@@ -46,11 +46,12 @@ public class MyService {
 
 예로는 최근 스프링에서 웹설정을 위한 어댑터에 @Deprecated가 달리게 되었다.
 
-**@Deprecated**
-
+```java
+@Deprecated
 public abstract class WebSecurityConfigurerAdapter implements WebSecurityConfigurer<WebSecurity> {
     ...
 }
+```
 
 **@SupreesWarning**
 
@@ -73,10 +74,13 @@ Java 8버전 이후의 새로운 어노테이션이다.
 
 이는 필드에만 적용할 수 있고 native code영역과 관련이 있다는것을 명시적으로 알려준다.
 
+```java
 public final class Integer {
     @Native public static final int MIN_VALUE = 0x80000000;
     // omitted
 }
+```
+
 네이티브 영역은 외부 언어로 작성된 파일을 저장하는 메모리 영역인데 보통 C언어로 작성되어 있기에 이를 명시하는 의미로 쓰인다. Native 메서드에서 참조되는 상수 앞에 붙인다고 한다.
 
 ### Meta-Annotation
