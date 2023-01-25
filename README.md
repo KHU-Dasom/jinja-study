@@ -121,3 +121,14 @@
 | 강민석 | [Annotation](./9주차_JAVA/강민석_Annotation.md) |
 | 윤준석 | [String](./9주차_JAVA/윤준석_String.md) |
 | 홍준식 | [Class Loader](./9주차_JAVA/홍준식_Class_Loader.md) |
+
+### 10주차 (1월 31일)
+
+- 상위 발표 주제: JAVA
+
+| 이름 | 세부 주제 |
+| --- | --- |
+| 강민석 | [Advanced Annotation](./10주차_JAVA/강민석_Advanced_Annotation.md) |
+| 윤준석 | [Comparable](./10주차_JAVA/윤준석_Comparable.md) |
+| 홍준식 | [Garbage Collection](./10주차_JAVA/홍준식_Garbage_Collection.md) |
+
