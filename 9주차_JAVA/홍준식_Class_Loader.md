@@ -1,5 +1,5 @@
 # JVM
-OS에 종속받지 않고 CPU가 Java를 실행시킬 수 있도록 하는 가상 컴퓨터
+OS에 종속받지 않고 CPU가 Java를 실행시킬 수 있도록 하는 가상 컴퓨터  
 ![JVM](https://user-images.githubusercontent.com/51476083/113502632-7959d580-9568-11eb-8457-edc8b60b0bac.png) 
 Java 소스코드(`*.java`)는 CPU가 읽어들일 수 없어 기계어로 컴파일을 해줘야 한다.  
 하지만 Java는 JVM이라는 가상 머신을 거쳐서 OS에 도달하기 때문에 JVM이 인식할 수 있는 Java Bytecode(`*.class`)로 변환한 뒤에 JVM이 CPU가 읽을 수 있는 기계어로 변환을 한다.  
@@ -111,7 +111,7 @@ System.out.println(s1.getClass() == s2.getClass());  // true
 ### 초기화
 링킹의 준비 단계에 확보한 메모리 영역에 값들을 할당한다.
 ## 클래스 로더 모델
-일반적으로 클래스 로더는 3가지 모델이 있다.
+일반적으로 클래스 로더는 3가지 모델이 있다.  
 ![Class Loader](https://blog.kakaocdn.net/dn/csG0Ot/btqKXinWA1V/wZ7sIqo4mOczdj27bwublk/img.png) 
 - Bootstrap Class Loader: `JAVA_HOME/jre/lib`에 있는 core java API 클래스를 로드한다.
 - Extension Class Loader: `JAVA_HOME/jre/lib/ext`에 있는 core java API 클래스를 로드한다.
