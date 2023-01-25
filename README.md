@@ -31,10 +31,10 @@
 
 | 이름 | 세부 주제 |
 | --- | --- |
-| 강민석 | [DNS](./1주차_네트워크/강민석_DNS.md) |
-| 윤준석 | [리버스 프록시](./1주차_네트워크/윤준석_리버스_프록시.md) |
-| 최승호 | [Ethernet](./1주차_네트워크/최승호_Ethernet.md) |
-| 홍준식 | [로드 밸런서](./1주차_네트워크/홍준식_로드_밸런서.md) |
+| 강민석 | [DNS](./01주차_네트워크/강민석_DNS.md) |
+| 윤준석 | [리버스 프록시](./01주차_네트워크/윤준석_리버스_프록시.md) |
+| 최승호 | [Ethernet](./01주차_네트워크/최승호_Ethernet.md) |
+| 홍준식 | [로드 밸런서](./01주차_네트워크/홍준식_로드_밸런서.md) |
 
 ### 2주차 (11월 21일)
 
@@ -42,10 +42,10 @@
 
 | 이름 | 세부 주제 |
 | --- | --- |
-| 강민석 | [HTTPs](./2주차_네트워크/강민석_HTTPs.md) |
-| 윤준석 | [HTTP2](./2주차_네트워크/윤준석_HTTP2.md) |
-| 최승호 | [Ethernet](./2주차_네트워크/최승호_Ethernet.md) |
-| 홍준식 | [HTTP3](./2주차_네트워크/홍준식_HTTP3.md) |
+| 강민석 | [HTTPs](./02주차_네트워크/강민석_HTTPs.md) |
+| 윤준석 | [HTTP2](./02주차_네트워크/윤준석_HTTP2.md) |
+| 최승호 | [Ethernet](./02주차_네트워크/최승호_Ethernet.md) |
+| 홍준식 | [HTTP3](./02주차_네트워크/홍준식_HTTP3.md) |
 
 ### 3주차 (11월 28일)
 
@@ -53,10 +53,10 @@
 
 | 이름 | 세부 주제 |
 | --- | --- |
-| 강민석 | [OSI_7_LAYER](./3주차_네트워크/강민석_OSI_7_LAYER.md) |
-| 윤준석 | [DHCP](./3주차_네트워크/윤준석_DHCP.md) |
-| 최승호 | [Ethernet](./3주차_네트워크/최승호_Ethernet.md) |
-| 홍준식 | [TCP](./3주차_네트워크/홍준식_TCP.md) |
+| 강민석 | [OSI_7_LAYER](./03주차_네트워크/강민석_OSI_7_LAYER.md) |
+| 윤준석 | [DHCP](./03주차_네트워크/윤준석_DHCP.md) |
+| 최승호 | [Ethernet](./03주차_네트워크/최승호_Ethernet.md) |
+| 홍준식 | [TCP](./03주차_네트워크/홍준식_TCP.md) |
 
 ### 4주차 (12월 5일)
 
@@ -64,10 +64,10 @@
 
 | 이름 | 세부 주제 |
 | --- | --- |
-| 강민석 | [Process](./4주차_OS/강민석_Process.md) |
-| 윤준석 | [Thread](./4주차_OS/윤준석_Thread.md) |
-| 최승호 | [Scheduling](./4주차_OS/최승호_Scheduling.md) |
-| 홍준식 | [Interrupt, System Call](./4주차_OS/홍준식_Interrupt_System_Call.md) |
+| 강민석 | [Process](./04주차_OS/강민석_Process.md) |
+| 윤준석 | [Thread](./04주차_OS/윤준석_Thread.md) |
+| 최승호 | [Scheduling](./04주차_OS/최승호_Scheduling.md) |
+| 홍준식 | [Interrupt, System Call](./04주차_OS/홍준식_Interrupt_System_Call.md) |
 
 ### 5주차 (12월 19일)
 
@@ -75,10 +75,10 @@
 
 | 이름 | 세부 주제 |
 | --- | --- |
-| 강민석 | [Synchronization](./5주차_OS/강민석_Synchronization.md) |
-| 윤준석 | [Kernel](./5주차_OS/윤준석_Kernel.md) |
-| 최승호 | [File System](./5주차_OS/최승호_File_System.md) |
-| 홍준식 | [Virtual Memory System](./5주차_OS/홍준식_Virtual_Memory_System.md) |
+| 강민석 | [Synchronization](./05주차_OS/강민석_Synchronization.md) |
+| 윤준석 | [Kernel](./05주차_OS/윤준석_Kernel.md) |
+| 최승호 | [File System](./05주차_OS/최승호_File_System.md) |
+| 홍준식 | [Virtual Memory System](./05주차_OS/홍준식_Virtual_Memory_System.md) |
 
 ### 6주차 (1월 3일)
 
@@ -86,10 +86,10 @@
 
 | 이름 | 세부 주제 |
 | --- | --- |
-| 강민석 | [JAVA8](./6주차_JAVA/강민석_JAVA8.md) |
-| 윤준석 | [Wrapper Class](./6주차_JAVA/윤준석_Wrapper_Class.md) |
-| 최승호 | [OOP](./6주차_JAVA/최승호_OOP.md) |
-| 홍준식 | [Interface](./6주차_JAVA/홍준식_Interface.md) |
+| 강민석 | [JAVA8](./06주차_JAVA/강민석_JAVA8.md) |
+| 윤준석 | [Wrapper Class](./06주차_JAVA/윤준석_Wrapper_Class.md) |
+| 최승호 | [OOP](./06주차_JAVA/최승호_OOP.md) |
+| 홍준식 | [Interface](./06주차_JAVA/홍준식_Interface.md) |
 
 ### 7주차 (1월 10일)
 
@@ -97,10 +97,10 @@
 
 | 이름 | 세부 주제 |
 | --- | --- |
-| 강민석 | [JAVA Coding Style](./7주차_JAVA/강민석_JAVA_Coding_Style.md) |
-| 윤준석 | [First Class Collection](./7주차_JAVA/윤준석_First_Class_Collection.md) |
+| 강민석 | [JAVA Coding Style](./07주차_JAVA/강민석_JAVA_Coding_Style.md) |
+| 윤준석 | [First Class Collection](./07주차_JAVA/윤준석_First_Class_Collection.md) |
 | 최승호 | |
-| 홍준식 | [Generic](./7주차_JAVA/홍준식_Generic.md) |
+| 홍준식 | [Generic](./07주차_JAVA/홍준식_Generic.md) |
 
 ### 8주차 (1월 17일)
 
@@ -108,9 +108,9 @@
 
 | 이름 | 세부 주제 |
 | --- | --- |
-| 강민석 | [Reflection](./8주차_JAVA/강민석_Reflection.md) |
-| 윤준석 | [Serialize](./8주차_JAVA/윤준석_Serialize.md) |
-| 홍준식 | [Stream](./8주차_JAVA/홍준식_Stream.md) |
+| 강민석 | [Reflection](./08주차_JAVA/강민석_Reflection.md) |
+| 윤준석 | [Serialize](./08주차_JAVA/윤준석_Serialize.md) |
+| 홍준식 | [Stream](./08주차_JAVA/홍준식_Stream.md) |
 
 ### 9주차 (1월 24일)
 
@@ -118,9 +118,9 @@
 
 | 이름 | 세부 주제 |
 | --- | --- |
-| 강민석 | [Annotation](./9주차_JAVA/강민석_Annotation.md) |
-| 윤준석 | [String](./9주차_JAVA/윤준석_String.md) |
-| 홍준식 | [Class Loader](./9주차_JAVA/홍준식_Class_Loader.md) |
+| 강민석 | [Annotation](./09주차_JAVA/강민석_Annotation.md) |
+| 윤준석 | [String](./09주차_JAVA/윤준석_String.md) |
+| 홍준식 | [Class Loader](./09주차_JAVA/홍준식_Class_Loader.md) |
 
 ### 10주차 (1월 31일)
 
