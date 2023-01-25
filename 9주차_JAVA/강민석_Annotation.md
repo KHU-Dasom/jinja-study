@@ -190,7 +190,7 @@ public @interface WithAuthUser {
 }
 ```
 
-- 커스텀 어노테이션을 만들기 위해서는 `@interface`를 붙여야한다. 필수는 아니지만 다른 개발자들에게 어노테이션이라는 것을 알려줄 수 있다.
+- 커스텀 어노테이션을 만들기 위해서는 `@interface`를 붙여야한다. 
 - `@Retention()`을 통해 해당 어노테이션이 런타임때까지 남아있어야한다고 한다.
 - `@WithSecurityContext()`라는 어노테이션은 우리가 만들 `WithSecurityContextFactory`구현체 클래스 정보를 넣으면 된다. 즉, `WithAuthUserSecurityContextFactory`는 `WithSecurityContextFactory`를 구현한 구현체이다.
 
