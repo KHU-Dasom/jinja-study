@@ -68,4 +68,21 @@ public class GetProcessor extends AbstractProcessor {
 }
 ```
 
-TODO 설명
+#### **@SupportedAnnotationTypes**
+
+- 인자로 들어온 값의 경로를 찾고 해당 어노테이션의 값을 사용하여, 어떠한 **처리**를 할 수 있게 도와준다.
+  - 이는 `Processor`라는 인터페이스에 정의된 `getSupportedAnnotationTypes`라는 메서드를 통해 인자로 들어온 어노테이션의 이름을 반환하여 작업을 할 수 있게 도와준다.
+  - 우리가 extends한 `AbstractProcessor` 클래스는 위의 `Processor`를 구현한 구현체이며, 우리가 필요한것들만 오버라이드 해서 사용할 것이다.
+
+
+- **Annotation Processor**를 지원하는 어노테이션 인터페이스를 나타내는 어노테이션임을 뜻한다.
+  - Annotation Processor란 어노테이션을 처리하는 일종의 프로그램이다.
+- 이를통해 Annotation Processor는 특정 어노테이션 인터페이스를 사용하는 클래스를 검색하여 처리할 수 있게 된다.
+
+즉, 코드에서는 `mylombok`패키지에 있는 `Get`어노테이션을 처리하도록 도와주는 소스이다.
+
+
+
+
+
+
