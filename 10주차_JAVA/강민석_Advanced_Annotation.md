@@ -228,13 +228,252 @@ for (final Element element : roundEnv.getElementsAnnotatedWith(Get.class)) {
 
 ![image](https://user-images.githubusercontent.com/30401054/215318053-0a84448c-8d1a-4b43-afce-f512fd99d899.png)
 
+### `final TreePath path = trees.getPath(element);`
+
+**TreePath**란 자바 프로그램에서 사용되는 코드, 메서드, 클래스, 변수등을 하나의 트리형태의 자료구조로 관리하는 클래스이다. 
+
+그래서 `getPath()`메소드를 통해 개발자가 원하는 특정 노드의 경로를 찾을 수 있다.
+
+이를 출력하려면 `getPathCoponent()`메서드를 통해 호출 할 수 있다.
+
+```java
+//..위에 for문으로 @Get이 달린 모든 요소들을 element에 넣고 있다.
+final TreePath path = trees.getPath(element);
+System.out.println(path.getCompilationUnit());
+//scanner.scan(path, path.getCompilationUnit());
+```
+
+실제로 이를 호출해보면
+
+![image](https://user-images.githubusercontent.com/30401054/215502751-de0b27e3-a62a-40dc-997e-4a5c4d6cf750.png)
+
+`@Get`어노테이션이 달린 파일의 소스코드를 모두 가지고 있음을 알 수 있다. 여담으로 컴파일러가 생성자가 없는 경우에는 기본 생성자도 알아서 만들어주고, 한글 문자가 유니코드로 변환됨을 알 수 있다.
+
+### `scanner.scan(path, path.getCompilationUnit());`
+
+scanner는 위에서 변수로 작성되어있는데, 어떻게 작성되어있는지 보겠다.
+
+```java
+TreePathScanner<Object, CompilationUnitTree> scanner = new TreePathScanner<Object, CompilationUnitTree>(){
+            
+            @Override
+            public Trees visitClass(ClassTree classTree, CompilationUnitTree unitTree){
+                JCTree.JCCompilationUnit compilationUnit = (JCTree.JCCompilationUnit) unitTree;
+                // .java 파일인지 확인후 accept 를 통해 treeTransLator, 작성 메소드 생성
+                if (compilationUnit.sourcefile.getKind() == JavaFileObject.Kind.SOURCE){
+                    compilationUnit.accept(new TreeTranslator() {
+                        @Override
+                        public void visitClassDef(JCTree.JCClassDecl jcClassDecl) {
+                            super.visitClassDef(jcClassDecl);
+                            // Class 내부에 정의된 모든 member 를 싹다 가져옴.
+                            List<JCTree> members = jcClassDecl.getMembers();
+                            // Syntax tree 에서 모든 member 변수 get
+                            for(JCTree member : members){
+                                if (member instanceof JCTree.JCVariableDecl){
+                                    // member 변수에 대한 getter 메서드 생성
+                                    List<JCTree.JCMethodDecl> getters = createGetter((JCTree.JCVariableDecl) member);
+                                    for(JCTree.JCMethodDecl getter : getters){
+                                        jcClassDecl.defs = jcClassDecl.defs.prepend(getter);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+                return trees;
+            }
+        };
+```
+
+이 코드를 하나씩 까볼 필요가 있다.
+
+#### `TreePathScanner<Object, CompilationUnitTree>`
+
+이 클래스는 자바 컴파일러API가 제공하는 클래스로, 자바 소스 트리 구조를 순회하면서 개발자의 명령어를 수행할 수 있는 트리구조이다.
+
+각 요소에 대해서, 첫 번째 자료형은 해당 클래스의 **리턴**타입을 말하고, 두 번째 자료형은 **트리의 루트 요소 타입**을 말한다.
+
+즉, 이 클래스는 `Object`형을 반환할 것이고, 트리의 루트 요소 타입은 `ComilationUnitTree`타입이 될 것이다.
+
+그리고 이는 `visitClass()`를 오버라이드 하게 되어있는데 이는
+
+`scanner.scan(path, path.getCompilationUnit());`이 소스에서 호출하고 있다.
+
+디버그를 찍어보면
+
+![image](https://user-images.githubusercontent.com/30401054/215509661-fbc8b052-a5ea-4c87-ad70-56fc6a0a915a.png)
+
+`scan()`메소드의 `accept()`라는 메서드가 있는데, 이 부분을 들어가게 되면
+
+![image](https://user-images.githubusercontent.com/30401054/215510743-b6f589bc-6dfb-4c96-bc27-f174acfde345.png)
+
+오버라이드한 `visitClass()`를 호출하게 되어있다.
+
+`public Trees visitClass(ClassTree classTree, CompilationUnitTree unitTree)`에서 그러면 `classTree`는 무엇이고, `unitTree`는 무엇인가
+
+`classTree`는 패키지, 임포트 문을 제외한 자바 소스코드 그 자체이고, `unitTree`는 패키지, 임포트문을 포함한 자바 소스 코드이다.
+
+```java
+//classTree
+
+@Get()
+public class Test {
+    
+    public Test() {
+        super();
+    }
+}
+
+//unitTree
+package me.kms.animal;
+
+import me.kms.anno.Get;
+
+@Get()
+public class Test {
+    
+    public Test() {
+        super();
+    }
+}
+```
+
+그 밑은 자바 코드인지 확인하고 맞다면 `TreeTranslator`클래스를 만들어서 특정 행동을 수행하게 된다.
+
+```java
+// java파일인지 확인
+if (compilationUnit.sourcefile.getKind() == JavaFileObject.Kind.SOURCE){
+                    compilationUnit.accept(new TreeTranslator() {
+                        @Override
+                        public void visitClassDef(JCTree.JCClassDecl jcClassDecl) {
+                            super.visitClassDef(jcClassDecl);
+                            // Class 내부에 정의된 모든 member 를 싹다 가져옴.
+                            List<JCTree> members = jcClassDecl.getMembers();
+                            // Syntax tree 에서 모든 member 변수 get
+                            for(JCTree member : members){
+                                if (member instanceof JCTree.JCVariableDecl){
+                                    // member 변수에 대한 getter 메서드 생성
+                                    List<JCTree.JCMethodDecl> getters = createGetter((JCTree.JCVariableDecl) member);
+                                    for(JCTree.JCMethodDecl getter : getters){
+                                        jcClassDecl.defs = jcClassDecl.defs.prepend(getter);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+```
+
+즉, 우리는 다시 `visitClassDef()`가 언제 호출되는지, 호출 내용에 대해 알 필요가 있다.
+
+- 먼저, `compilationUnit.accept`로 들어갈 필요가 있다.
+
+```java
+public void accept(JCTree.Visitor var1) {
+    var1.visitTopLevel(this);
+}
+```
 
 
+이렇게 구현되어있으며, 이를 또 타고 들어가면
 
+![image](https://user-images.githubusercontent.com/30401054/215526338-863e5e13-cece-4fd2-8f46-81032378e809.png)
 
+`translate()` 함수는 
 
+```java
+public <T extends JCTree> List<T> translate(List<T> var1) {
+        if (var1 == null) {
+            return null;
+        } else {
+            for(List var2 = var1; var2.nonEmpty(); var2 = var2.tail) {
+                var2.head = this.translate((JCTree)var2.head);
+            }
 
+            return var1;
+        }
+    }
+```
 
+이렇게 구현되어있다. `var`는 import문과 소스코드를 나눈 스트링을 리스트로 가지고 있다.
 
+```java
+//var1[0]
+import me.kms.anno.Get;
+
+//var1[1]
+@Get()
+public class Test {
+    
+    public Test() {
+        super();
+    }
+}
+```
+
+그래서 실질적으로 `var1`을 돌면서 `this.translate((JCTree)var2.head)`이 문장을 수행해준다.
+
+여기서 `head`란 인덱스로 봐도 무방하다. `tail`은 끝의 인덱스를 지칭한다.
+
+그래서 `this.translate()`도 봐야하는데,
+
+```java
+public <T extends JCTree> T translate(T var1) {
+    if (var1 == null) {
+        return null;
+    } else {
+        var1.accept(this);
+        JCTree var2 = this.result;
+        this.result = null;
+        return var2;
+    }
+}
+```
+
+이렇게 구현이 되어있다.
+
+내부는 좀 더 복잡하지만, 간단하게 `import`로 선언된 경로를 하나하나 파싱해가면서 찾아가는 역할을한다. **me.kms.anno.Get**으로 되어있다면 **me**를 들리고 그다음 **kms**를 들리고 .. 이런 작업을 진행한다.
+
+그래서 `import`문을 이렇게 찾아가고 위의 코드에서 `var1[1]`인 소스코드 부분도 `accept()`함수를 호출하게 처리하게 된다.
+
+이는 좀 더 다르게 동작하는데, 그 이유는 둘의 자료형이 다르기 때문이다.
+
+![image](https://user-images.githubusercontent.com/30401054/215530654-b1246e13-6234-474c-923a-8f0d1808e736.png)
+
+그래서 `var1[1]`은 `JCClassDecl`의 `accept()`를 호출하게 되는데 다음과 같이 구현되어있다.
+
+```java
+public void accept(JCTree.Visitor var1) {
+    var1.visitClassDef(this);
+}
+```
+
+여기서 우리가 오버라이드해준 `vistiClassDef()`가 호출이 되는 것이다.
+
+그럼 다시 돌아가야한다.
+
+그래서 일단 오버라이드한 함수 인자로 임포트문을 제외한 소스코드가 있다고 인지하고 시작하자.
+
+```java
+public void visitClassDef(JCTree.JCClassDecl jcClassDecl) {
+    super.visitClassDef(jcClassDecl);
+    // Class 내부에 정의된 모든 member 를 싹다 가져옴.
+    List<JCTree> members = jcClassDecl.getMembers();
+    // Syntax tree 에서 모든 member 변수 get
+    for(JCTree member : members){
+        if (member instanceof JCTree.JCVariableDecl){
+            // member 변수에 대한 getter 메서드 생성
+            List<JCTree.JCMethodDecl> getters = createGetter((JCTree.JCVariableDecl) member);
+            for(JCTree.JCMethodDecl getter : getters){
+                jcClassDecl.defs = jcClassDecl.defs.prepend(getter);
+            }
+        }
+    }
+}
+```
+
+내부 구현을 보자
+
+`super.visitClassDef()는 
 
 
