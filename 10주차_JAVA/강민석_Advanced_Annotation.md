@@ -11,7 +11,7 @@
 - Intellij: 2021.2.1
 - Language: Java 8
 - ProjectName: customLombok
-- 구현내용: @Get(getter), @Set(setter), **@NoArgsConstructor(기본 생성자)**
+- 구현내용: @Get(getter) 
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -287,7 +287,7 @@ TreePathScanner<Object, CompilationUnitTree> scanner = new TreePathScanner<Objec
 
 이 코드를 하나씩 까볼 필요가 있다.
 
-#### `TreePathScanner<Object, CompilationUnitTree>`
+### `TreePathScanner<Object, CompilationUnitTree>`
 
 이 클래스는 자바 컴파일러API가 제공하는 클래스로, 자바 소스 트리 구조를 순회하면서 개발자의 명령어를 수행할 수 있는 트리구조이다.
 
@@ -474,6 +474,99 @@ public void visitClassDef(JCTree.JCClassDecl jcClassDecl) {
 
 내부 구현을 보자
 
-`super.visitClassDef()는 
+`super.visitClassDef()`는 다음과 같이 구현되어 있다.
 
+```java
+public void visitClassDef(JCClassDecl var1) {
+    //어노테이션 정보를 가지고 있다.
+    var1.mods = (JCModifiers)this.translate((JCTree)var1.mods);
+    //없음
+    var1.typarams = this.translateTypeParams(var1.typarams);
+    //없음
+    var1.extending = (JCExpression)this.translate((JCTree)var1.extending);
+    //없음
+    var1.implementing = this.translate(var1.implementing);
+    //함수에 관한 정보
+    var1.defs = this.translate(var1.defs);
+    this.result = var1;
+}
+```
+
+인자로 넘어온 값들을 가지고 초기화를 수행한다.
+
+기존에는 빈 클래스를 예시르 들었지만, 이해를 돕기 위해 이번에는 멤버변수를 3개 가지고 있는 클래스를 가지고 디버그를 할 것이다.
+
+- `List<JCTree> members = jcClassDecl.getMembers();`이 구문은 간단하게 구현되어있다.
+
+```java
+public List<JCTree> getMembers() {
+    return this.defs;
+}
+```
+
+이렇게 간단하게 구현되어, 멤버 변수, 멤버 함수를 반환한다.
+
+![image](https://user-images.githubusercontent.com/30401054/215750908-10271631-f91b-4d1a-8e94-957a5bb9d0bc.png)
+
+그 후, 멤버 변수면 해당 멤버 변수를 가지고 `Getter`를 만들게 되는데, 이 부분은 개발자가 직접 작성해주어야한다.
+
+```java
+public List<JCTree.JCMethodDecl> createGetter(JCTree.JCVariableDecl var){
+        // 필드 이름 변수에 앞문자 대문자로 변경 해주기
+        String str = var.name.toString();
+        String upperVar = str.substring(0,1).toUpperCase()+str.substring(1,var.name.length());
+
+        return List.of(
+                /**
+                 * treeMaker.Modifiers -> syntax tree node 에 접근하여 수정및 삽입하는 역할
+                 * @Parm : treeMaker.Modifiers flag 1-> public , 2-> private, 0-> default
+                 * @Parm : methodName & Type, return 정의
+                 */
+                treeMaker.MethodDef(
+                        treeMaker.Modifiers(1), // public
+                        names.fromString("get".concat(upperVar)), // 메서드 명
+                        (JCTree.JCExpression) var.getType(), // return type
+                        List.nil(),
+                        List.nil(),
+                        List.nil(),
+                        // 식생성 this.a = a;
+                        treeMaker.Block(1, List.of(treeMaker.Return((treeMaker.Ident(var.getName()))))),
+                        null));
+    }
+```
+
+대부분의 내용은 주석을 보면 이해가 되지만 `treeMaker.Block()` 메서드 생성 부분은 짚고 넘어갈만하다.
+
+이 함수는 **함수 블럭**을 만드는 함수로,
+
+- 첫 번째 인자값은 접근 지정자이다. 1은 **public**을 의미한다.
+- 두 번째 인자값은 **리스트**를 주어야하고, 블록 한 줄을 작성할 수 있게 한다. 저 구문에서는 리턴 값에 쓸 문자열을 지정해준것이다.
+
+결국, 
+
+```java
+public {
+    return age;
+}
+```
+
+이런 구문이 만들어질 것이다.
+
+그래서 결국, treeMaker에서 제공하는 `MethodDef()`메서드를 통해
+
+```java
+public int getAge() public {
+    return age;
+}
+```
+
+를 반환하게 된다.
+
+이렇게 모든 멤버변수를 돌면서 `getter`를 만들고, 이를 JCTree에 넣어준다. 
+
+![image](https://user-images.githubusercontent.com/30401054/215760379-300babb5-d2f4-42aa-a910-a58bfc6cbffe.png)
+
+그렇게 트리로 만들어진 코드는 컴파일 되어서 클래스 파일로 만들어진다.
+
+![image](https://user-images.githubusercontent.com/30401054/215761501-ef11bd04-4e86-4d5d-8a2c-3fb070c8f60e.png)
 
